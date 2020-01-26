@@ -1,0 +1,18 @@
+with "SDL2.gpr";
+
+project SDL2_Examples is
+
+   for Languages use ("Ada");
+   for Source_Dirs use ("examples");
+   for Object_Dir use "obj";
+   for Exec_Dir use "obj";
+   for Main use ("examples/simple_window.adb");
+
+   package Compiler renames SDL2.Compiler;
+   package Binder renames SDL2.Binder;
+
+   package Linker is
+      for Switches ("Ada") use SDL2.Linker_Flags;
+   end Linker;
+
+end SDL2_Examples;

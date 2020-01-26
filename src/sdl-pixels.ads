@@ -49,8 +49,9 @@ package SDL.Pixels is
    SDL_PACKEDLAYOUT_1010102 : constant := 8;
 
    function SDL_DEFINE_PIXELFOURCC (A, B, C, D : int) return Unsigned_32 is
-     (Unsigned_32 (D) or Shift_Left (Unsigned_32 (C), 8)
-       or Shift_Right (Unsigned_32 (B), 16)
+     (Unsigned_32 (D)
+       or Shift_Left (Unsigned_32 (C), 8)
+       or Shift_Left (Unsigned_32 (B), 16)
        or Shift_Left (Unsigned_32 (A), 24));
 
    function SDL_DEFINE_PIXELFORMAT
@@ -62,6 +63,7 @@ package SDL.Pixels is
        or Unsigned_32 (bytes));
 
    subtype SDL_PixelFormatEnum is unsigned;
+
    SDL_PIXELFORMAT_UNKNOWN      : constant := 0;
    SDL_PIXELFORMAT_INDEX1LSB    : constant := 286261504;
    SDL_PIXELFORMAT_INDEX1MSB    : constant := 287310080;

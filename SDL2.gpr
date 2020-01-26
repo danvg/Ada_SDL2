@@ -1,0 +1,74 @@
+project SDL2 is
+
+   for Languages use ("Ada");
+   for Source_Dirs use ("src");
+   for Object_Dir use "obj";
+   for Exec_Dir use "obj";
+   --  for Main use ("example_init.adb", "example_file_system.adb");
+
+   type Build_Modes is ("Debug", "Release");
+   Build_Mode : Build_Modes := external ("Build_Mode", "Debug");
+
+   type Platforms is ("Win32", "X11");
+   Platform : Platforms := external ("Platform", "Win32");
+
+   Compiler_Flags := ();
+   Binder_Flags := ();
+   Linker_Flags := ();
+
+   case Build_Mode is
+      when "Debug" =>
+         Compiler_Flags := Compiler_Flags & ("-g", "-gnata", "-gnatwa");
+         Binder_Flags := Binder_Flags & ("-Es");
+         Linker_Flags := Linker_Flags & ("-g");
+      when "Release" =>
+         Compiler_Flags := Compiler_Flags & ("-O2");
+         Linker_Flags := Linker_Flags & ("-s");
+      when others =>
+         null;
+   end case;
+
+   case Platform is
+      when "Win32" =>
+         Linker_Flags := Linker_Flags & ("-lmingw32", "-lSDL2");
+      when "X11" =>
+         Linker_Flags := Linker_Flags & ("-lSDL2");
+      when others =>
+         null;
+   end case;
+
+   package Compiler is
+      for Switches ("Ada") use Compiler_Flags;
+   end Compiler;
+
+   package Binder is
+      for Switches ("Ada") use Binder_Flags;
+   end Binder;
+
+   package Linker is
+      for Switches ("Ada") use Linker_Flags;
+   end Linker;
+
+   package Pretty_Printer is
+      for Default_Switches ("ada") use
+        ("--replace",
+         "--max-line-length=79",
+         "--indentation=3",
+         "--indent-continuation=2",
+         "--eol=lf",
+         "--wide-character-encoding=8",
+         "--comments-unchanged",
+         "--no-separate-is",
+         "--no-separate-loop-then",
+         --  "--number-case-as-declared",
+         --  "--enum-case-as-declared",
+         --  "--name-mixed-case",
+         "--vertical-enum-types",
+         "--vertical-named-aggregates",
+         -- "--indent-named-statements"
+         "--par-threshold=2"
+         --  "--call-threshold=3"
+       );
+   end Pretty_Printer;
+
+end SDL2;

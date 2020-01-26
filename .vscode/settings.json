@@ -1,0 +1,10 @@
+{
+    "ada.projectFile": "SDL2.gpr",
+    "ada.scenarioVariables": 
+    {
+
+    }, 
+    "ada.defaultCharset": "utf-8",
+    "ada.enableDiagnostics": true,
+    "ada.renameInComments": false,
+}

@@ -28,6 +28,9 @@ package SDL is
    type Integer_16_Array is array (size_t range <>) of aliased Integer_16
      with Convention => C;
 
+   type Unsigned_32_Array is array (size_t range <>) of aliased Unsigned_32
+     with Convention => C;
+
    type Float_Array is array (size_t range <>) of aliased Float
      with Convention => C;
 

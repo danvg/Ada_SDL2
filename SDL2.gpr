@@ -1,10 +1,11 @@
-project SDL2 is
+library project SDL2 is
 
    for Languages use ("Ada");
    for Source_Dirs use ("src");
    for Object_Dir use "obj";
-   for Exec_Dir use "obj";
-   --  for Main use ("example_init.adb", "example_file_system.adb");
+   for Library_Dir use "lib";
+   for Library_Ali_Dir use "lib";
+   for Library_Kind use "static";
 
    type Build_Modes is ("Debug", "Release");
    Build_Mode : Build_Modes := external ("Build_Mode", "Debug");
@@ -21,9 +22,11 @@ project SDL2 is
          Compiler_Flags := Compiler_Flags & ("-g", "-gnata", "-gnatwa");
          Binder_Flags := Binder_Flags & ("-Es");
          Linker_Flags := Linker_Flags & ("-g");
+         for Library_Name use "ada_sdl2-debug";
       when "Release" =>
          Compiler_Flags := Compiler_Flags & ("-O2");
          Linker_Flags := Linker_Flags & ("-s");
+         for Library_Name use "ada_sdl2-release";
       when others =>
          null;
    end case;
@@ -44,10 +47,6 @@ project SDL2 is
    package Binder is
       for Switches ("Ada") use Binder_Flags;
    end Binder;
-
-   package Linker is
-      for Switches ("Ada") use Linker_Flags;
-   end Linker;
 
    package Pretty_Printer is
       for Default_Switches ("ada") use

@@ -20,6 +20,10 @@ package SDL.Keyboard is
      (numkeys : access int) return access Unsigned_8
      with Import, Convention => C, External_Name => "SDL_GetKeyboardState";
 
+   function SDL_GetKeyboardState_Address
+     (numkeys : access int) return System.Address
+     with Import, Convention => C, External_Name => "SDL_GetKeyboardState";
+
    function SDL_GetModState return SDL_Keymod
      with Import, Convention => C, External_Name => "SDL_GetModState";
 

@@ -6,7 +6,8 @@ project SDL2_Examples is
    for Source_Dirs use ("examples");
    for Object_Dir use "obj";
    for Exec_Dir use "obj";
-   for Main use ("examples/simple_window.adb");
+   for Main use ("examples/simple_window.adb",
+                 "examples/test_touch.adb");
 
    package Compiler renames SDL2.Compiler;
    package Binder renames SDL2.Binder;
